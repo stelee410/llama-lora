@@ -75,7 +75,7 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser(description= "Train on a model on a dataset")
   parser.add_argument("--model_path", type=str, default="decapoda-research/llama-7b-hf")
   parser.add_argument("--lora_weights", type=str, default=None)
-  parser.add_argument("--prompt", type=str, default="hello world")
+  parser.add_argument("--prompt", type=str, default="")
   parser.add_argument("--load_8bit", type=bool, default=False)
 
   args = parser.parse_args()
@@ -88,4 +88,11 @@ if __name__ == "__main__":
   if lora_weights is not None:
     inferer.use_lora(lora_weights)
   inferer.eval()
-  print(inferer.predict(prompt))
+  if prompt == "":
+    while True:
+      prompt = input("prompt: ")
+      if prompt == "q!":
+        break
+      print(inferer.predict(prompt))
+  else:
+    print(inferer.predict(prompt))
