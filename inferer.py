@@ -12,10 +12,10 @@ class Inferer:
     self.use_lora = False
     if torch.cuda.is_available():
       self.device = "cuda"
-  def use_lora(self, lora_weights):
+  def load_lora_weights(self, lora_weights):
     self.use_lora = True
     self.lora_weights = lora_weights
-  def eval(self):
+  def prepare(self):
     self.tokenizer = LlamaTokenizer.from_pretrained(self.model_path)
     self.model = LlamaForCausalLM.from_pretrained(self.model_path,
                                                   load_in_8bit=self.load_8bit,
@@ -86,8 +86,8 @@ if __name__ == "__main__":
 
   inferer = Inferer(model_path, load_8bit=load_8bit)
   if lora_weights is not None:
-    inferer.use_lora(lora_weights)
-  inferer.eval()
+    inferer.load_lora_weights(lora_weights)
+  inferer.prepare()
   if prompt == "":
     while True:
       prompt = input("prompt: ")
