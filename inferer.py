@@ -76,7 +76,7 @@ if __name__ == "__main__":
   parser.add_argument("--model_path", type=str, default="decapoda-research/llama-7b-hf")
   parser.add_argument("--lora_weights", type=str, default=None)
   parser.add_argument("--prompt", type=str, default="hello world")
-  parser.add_argument("--load_8bit", type=float, default=False)
+  parser.add_argument("--load_8bit", type=bool, default=False)
 
   args = parser.parse_args()
   model_path = args.model_path
