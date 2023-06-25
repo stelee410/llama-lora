@@ -3,6 +3,7 @@ import torch
 from transformers import LlamaTokenizer,LlamaForCausalLM,GenerationConfig
 from peft import PeftModel
 from prompter import Prompter
+import sys
 
 class Inferer:
   def __init__(self, model_path, load_8bit=True):
