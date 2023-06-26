@@ -75,20 +75,22 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser(description= "Train on a model on a dataset")
   parser.add_argument("--model_path", type=str, default="decapoda-research/llama-7b-hf")
   parser.add_argument("--lora_weights", type=str, default=None)
-  parser.add_argument("--prompt", type=str, default="")
+  parser.add_argument("--prompt", type=str, default="麻风病和儿童哮喘的病因是否一致？")
   parser.add_argument("--load_8bit", type=bool, default=False)
+  parser.add_argument("--interactive", type=bool, default=False)
 
   args = parser.parse_args()
   model_path = args.model_path
   lora_weights = args.lora_weights
   prompt = args.prompt
   load_8bit = args.load_8bit
+  interactive = args.interactive
 
   inferer = Inferer(model_path, load_8bit=load_8bit)
   if lora_weights is not None:
     inferer.load_lora_weights(lora_weights)
   inferer.prepare()
-  if prompt == "":
+  if interactive:
     while True:
       prompt = input("prompt: ")
       if prompt == "q!":
